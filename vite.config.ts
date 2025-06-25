@@ -6,8 +6,8 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": "/src",
-      "@shared": "../shared",
-      "@assets": "../attached_assets",
+      "@shared": "../../shared",
+      "@assets": "../../attached_assets",
     },
   },
   build: {
