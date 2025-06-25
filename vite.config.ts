@@ -6,14 +6,16 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      "@": path.resolve("./client/src"),
-      "@shared": path.resolve("./shared"),
-      "@assets": path.resolve("./attached_assets"),
+      "@": path.resolve(process.cwd(), "client/src"),
+      "@shared": path.resolve(process.cwd(), "shared"),
+      "@assets": path.resolve(process.cwd(), "attached_assets"),
     },
   },
-  root: "./client",
   build: {
-    outDir: "../dist/public",
+    rollupOptions: {
+      input: path.resolve(process.cwd(), "client/index.html")
+    },
+    outDir: "dist/public",
     emptyOutDir: true,
   },
 });
