@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "NODE_ENV=development tsx server/index.ts",
-    "build": "vite build && esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist",
+    "build": "cp -r client/src dist-temp && cp client/index.html dist-temp/ && vite build dist-temp/index.html --outDir dist/public && rm -rf dist-temp && esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist"
     "start": "NODE_ENV=production node dist/index.js"
   },
   "engines": {
