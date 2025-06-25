@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "NODE_ENV=development tsx server/index.ts",
-    "build": "mkdir -p dist/public && find . -name 'index.html' -path '*/client/*' -exec cp {} dist/public/index.html \\; && find . -name 'main.tsx' -path '*/client/*' -execdir esbuild main.tsx --bundle --format=esm --outfile=../../../../../dist/public/main.js --platform=browser --jsx=automatic --loader:.css=text --external:@shared --external:@assets \\; && sed -i 's|/src/main.tsx|./main.js|g' dist/public/index.html && esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outfile=dist/index.js",
+    "build": "mkdir -p dist/public dist/build && find . -name 'index.html' -path '*/client/*' -exec cp {} dist/public/index.html \\; && find . -path '*/client/src/*' \\( -name '*.tsx' -o -name '*.ts' -o -name '*.css' -o -name '*.js' \\) -exec cp {} dist/build/ \\; && if [ -d shared ]; then cp -r shared dist/build/; fi && cd dist/build && esbuild main.tsx --bundle --format=esm --outfile=../public/main.js --platform=browser --jsx=automatic --loader:.css=text --define:process.env.NODE_ENV='\"production\"' --external:@shared --external:@assets && cd ../.. && sed -i 's|/src/main.tsx|./main.js|g' dist/public/index.html && rm -rf dist/build && esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outfile=dist/index.js",
     "start": "NODE_ENV=production node dist/index.js"
   },
   "engines": {
